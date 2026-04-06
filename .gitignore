@@ -1,0 +1,14 @@
+node_modules/
+dist/
+release/
+out/
+.cache/
+.turbo/
+*.log
+*.map
+.DS_Store
+Thumbs.db
+.env
+.env.local
+renderer/types/
+renderer/vendor/

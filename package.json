@@ -1,0 +1,70 @@
+{
+  "name": "mere-code",
+  "version": "1.0.0",
+  "description": "Mere Code — AI-Native IDE powered by Mere X",
+  "main": "main.js",
+  "author": "Mere X <hello@merex.ai>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build:deps": "node scripts/bundle-deps.js",
+    "build:ts": "node scripts/build-ts.js",
+    "build": "npm run build:deps && npm run build:ts",
+    "postinstall": "node scripts/bundle-deps.js",
+    "rebuild": "electron-rebuild",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/addon-web-links": "^0.11.0",
+    "@xterm/xterm": "^5.5.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.3.9",
+    "monaco-editor": "^0.52.2",
+    "node-pty": "^1.1.0",
+    "simple-git": "^3.27.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.0",
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.13",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.8"
+  },
+  "build": {
+    "appId": "ai.merex.merecode",
+    "productName": "Mere Code",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "merex-ai",
+        "repo": "mere-code"
+      }
+    ],
+    "directories": { "output": "release" },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "node_modules/**/*",
+      "assets/**/*"
+    ],
+    "win": { "target": ["nsis"], "icon": "assets/icon.ico" },
+    "mac": { "target": ["dmg"], "icon": "assets/icon.icns" },
+    "linux": { "target": ["AppImage", "deb"], "icon": "assets/icon.png" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true }
+  }
+}
